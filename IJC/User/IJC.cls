@@ -10,7 +10,7 @@ Class User.IJC [ Abstract ]
 /// See the 
 /// <a href="http://docs.intersystems.com/latest/csp/docbook/DocBook.UI.Page.cls?KEY=GTER_batch#GTER_B173367">
 /// cterm doc page</a> for details on the command-line arguments.
-ClassMethod OpenTerminal() As %Integer
+ClassMethod OpenTerminal(posX As %Integer, posY As %Integer, rows As %Integer, columns As %Integer) As %Integer
 {
 	// Get the name of this Cache' instance.
 	SET cacheName=##class(%SYS.System).GetInstanceName()
@@ -19,9 +19,9 @@ ClassMethod OpenTerminal() As %Integer
 	// Compose the /console argument.
 	SET command=command_$LISTBUILD("/console=cn_ap:"_cacheName_"["_$NAMESPACE_"]:##class("_$CLASSNAME()_").OpenIJCDevice()")
 	// Compose the /pos argument.
-	SET command=command_$LISTBUILD("/pos=(50,50)")
+	SET command=command_$LISTBUILD("/pos=("_posX_","_posY_")")
 	// Compose the /size argument.
-	SET command=command_$LISTBUILD("/size=20x40")
+	SET command=command_$LISTBUILD("/size="_rows_"x"_columns)
 	// Execute the command.
 	SET sc=$ZF(-2,$LISTTOSTRING(command," "))
 	// Wait for OpenIJCDevice() to publish the device ID. Not a CPU-friendly solution, but it avoids an explicit time-out.
