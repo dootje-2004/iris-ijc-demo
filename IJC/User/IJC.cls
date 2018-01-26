@@ -6,7 +6,10 @@ Class User.IJC [ Abstract ]
 
 /// Opens a new terminal and returns an IJC device ID that allows writing to it.<br/>
 /// A return value of 0 indicates failure to open an IJC connection. This allows code to proceed without error checking
-/// and causes all WRITEs to be sent to the principal terminal.
+/// and causes all WRITEs to be sent to the principal terminal.<br/>
+/// See the 
+/// <a href="http://docs.intersystems.com/latest/csp/docbook/DocBook.UI.Page.cls?KEY=GTER_batch#GTER_B173367">
+/// cterm doc page</a> for details on the command-line arguments.
 ClassMethod OpenTerminal() As %Integer
 {
 	// Get the name of this Cache' instance.
@@ -17,6 +20,8 @@ ClassMethod OpenTerminal() As %Integer
 	SET command=command_$LISTBUILD("/console=cn_ap:"_cacheName_"["_$NAMESPACE_"]:##class("_$CLASSNAME()_").OpenIJCDevice()")
 	// Compose the /pos argument.
 	SET command=command_$LISTBUILD("/pos=(50,50)")
+	// Compose the /size argument.
+	SET command=command_$LISTBUILD("/size=20x40")
 	// Execute the command.
 	SET sc=$ZF(-2,$LISTTOSTRING(command," "))
 	// Wait for OpenIJCDevice() to publish the device ID. Not a CPU-friendly solution, but it avoids an explicit time-out.
@@ -110,4 +115,3 @@ ClassMethod Demo(keepOpen As %Boolean = 0)
 }
 
 }
-
