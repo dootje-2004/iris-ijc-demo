@@ -3,7 +3,7 @@ Caché ObjectScript interjob communication demo.
 
 ## Description
 Interjob communication is a way by which two Caché processes can pass data to each other. 
-The class ICJ demonstrates its use by opening a second terminal while a process is running in the first.
+The class IJC demonstrates its use by opening a second terminal while a process is running in the first.
 
 The IJC class has the following methods:
 - **OpenTerminal()** opens a terminal and returns its device ID. It has optional arguments for window position and size.
